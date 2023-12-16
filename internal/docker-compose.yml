@@ -1,0 +1,21 @@
+version: '2.23.3'
+
+services:
+  test-task-app:
+    build: ./
+    command: ./test-task-app
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    environment:
+      - CONFIG_PATH=./config/local.yaml
+  db:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - ./.database/postgres/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=6406655
+    ports:
+      - 5436:5432
