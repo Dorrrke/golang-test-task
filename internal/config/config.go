@@ -9,9 +9,17 @@ import (
 )
 
 type Config struct {
-	Env          string       `yaml:"env" env-default:"local"`
-	StoragePath  string       `yaml:"storage_path" env-required:"true"`
-	ServerConfig ServerConfig `yaml:"server"`
+	Env          string        `yaml:"env" env-default:"local"`
+	Storage      StorageConfig `yaml:"storage"`
+	ServerConfig ServerConfig  `yaml:"server"`
+}
+
+type StorageConfig struct {
+	User   string `yaml:"user"`
+	Pass   string `yaml:"password"`
+	Host   string `yaml:"host"`
+	Port   string `yaml:"port"`
+	DbName string `yaml:"dbname"`
 }
 
 type ServerConfig struct {
@@ -51,5 +59,8 @@ func fetchConfigPath() string {
 }
 
 func (serverCfg *ServerConfig) GetServerAddr() string {
+	if serverCfg.Host == "localhost" {
+		return ":" + serverCfg.Port
+	}
 	return serverCfg.Host + ":" + serverCfg.Port
 }

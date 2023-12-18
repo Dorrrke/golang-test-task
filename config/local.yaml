@@ -1,6 +1,11 @@
-env: local #dev, prod
-storage_path: "postgres://postgres:6406655@db:5432/golangtest"
+env: prod #local #dev, prod
+storage:
+  user: postgres
+  password: 6406655
+  host: db
+  port: 5432
+  dbname: postgres
 server:
-  host: "localhost"
-  port: 8081
+  host: localhost
+  port: 8080
   timeout: 10h #5s
